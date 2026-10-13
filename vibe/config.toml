@@ -1,0 +1,16 @@
+# Mistral Vibe's configuration, as the config.toml of a VIBE_HOME.
+# Both models are served by Vibe's built-in "mistral" provider, so there
+# is no [[providers]] entry and no key here: Vibe reads MISTRAL_API_KEY
+# from the environment.
+active_model = "glm53"
+
+[[models]]
+name = "zai-glm-5-3"
+provider = "mistral"
+alias = "glm53"
+
+# What runs use today.
+[[models]]
+name = "devstral-small-latest"
+provider = "mistral"
+alias = "devstral-small"
