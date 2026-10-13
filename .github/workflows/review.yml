@@ -1,0 +1,21 @@
+name: review
+on:
+  pull_request_target: # zizmor: ignore[dangerous-triggers] Base-branch policy and actions only; the head is data read inside the credential-free sandbox.
+    types: [opened, synchronize, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+permissions: {}
+jobs:
+  review:
+    if: >-
+      github.event_name == 'pull_request_target' ||
+      (github.event.issue.pull_request && startsWith(github.event.comment.body, '/review'))
+    # Base-owned policy; the head is fetched only as data inside the sandbox.
+    uses: cgwalters-forge/agentic-job/.github/workflows/review.yml@fbb0a2708f231ecc7acd7116fc957b8b3712a41c
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: write
+      actions: read
+      id-token: write
+      statuses: write
